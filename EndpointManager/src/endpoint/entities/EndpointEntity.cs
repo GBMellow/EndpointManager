@@ -1,27 +1,22 @@
+using System.Dynamic;
+
 namespace EndpointEntity
 {
-    class Endpoint(string serialNumber, int meterModelId, int meterNumber, string firmwareVersion, int switchState)
+    public class Endpoint
         {
-            public string SerialNumber { get; set; } = serialNumber;
-            public int MeterModelId { get; set; } = ValidateMeterModelId(meterModelId);
-            public int MeterNumber { get; set; } = meterNumber;
-            public string FirmwareVersion { get; set; } = firmwareVersion;
-            public int SwitchState { get; set; } = ValidateSwitchState(switchState);
-
-            public static int ValidateMeterModelId(int meterModelId){
-                if (meterModelId >= 16 && meterModelId <= 19)
-                {
-                    throw new ArgumentOutOfRangeException("Meter Model Id must be between 16 and 19");
-                }
-                return meterModelId;
-            }
-
-            public static int ValidateSwitchState(int switchState){
-                if (switchState >= 0 && switchState <= 3)
-                {
-                    throw new ArgumentOutOfRangeException("Meter Model Id must be between 16 and 19");
-                }
-                return switchState;
+            public int Id { get; set; }
+            public string SerialNumber { get; set; }
+            public int MeterModelId { get; set; }
+            public int MeterNumber { get; set; }
+            public string FirmwareVersion { get; set; }
+            public int SwitchState { get; set; }
+            public Endpoint(string serialNumber, int meterModelId, int meterNumber, string firmwareVersion, int switchState)
+            {
+                SerialNumber    = serialNumber;
+                MeterModelId    = meterModelId;
+                MeterNumber     = meterNumber;
+                FirmwareVersion = firmwareVersion;
+                SwitchState     = switchState;
             }
 
             public override string ToString()
