@@ -4,7 +4,6 @@ using System.Security;
 using System.Text.RegularExpressions;
 using System.Transactions;
 using System.Xml.Serialization;
-
 using EndpointEntity;
 
 namespace EndpointManager
