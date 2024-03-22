@@ -57,8 +57,12 @@ namespace EndpointManager
                     case 6:
                         Console.WriteLine("Are you sure you want to exit? (Y/N)");
                         if (Console.ReadLine().ToUpper() == "Y")
+                        { 
                             Environment.Exit(0);
                             return false;
+                        }
+
+                        return true;
                     default:
                         Console.WriteLine("Invalid option!\n");
                         return true;
@@ -191,13 +195,17 @@ namespace EndpointManager
 
                 var endpoint = repository.GetBySerialNumber(serialNumber);
                 
-                Console.WriteLine($"Are you sure you want to delete this endpoint? {endpoint}\n (Y/N)");
+                Console.WriteLine($"Are you sure you want to delete this endpoint?\n{endpoint}\n(Y/N)");
                 if (Console.ReadLine().ToUpper() == "Y")
                 {
                     if (repository.Delete(serialNumber))
                     {
                         Console.WriteLine("Endpoint deleted successfully!");
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Endpoint was not deleted!");
                 }
             }
             catch (Exception e)
