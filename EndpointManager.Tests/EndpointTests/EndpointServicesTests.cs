@@ -1,7 +1,8 @@
 using NUnit.Framework;
 using Moq;
+using EndpointEntity;
 
-namespace EndpointEntity.Tests
+namespace EndpointManager.Tests.EndpointTests
 {
 
     public class EndpointServiceTests

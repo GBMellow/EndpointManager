@@ -1,6 +1,7 @@
+using EndpointEntity;
 using NUnit.Framework;
 
-namespace EndpointEntity.Tests
+namespace EndpointManager.Tests.EndpointTests
 {
     [TestFixture]
     public class EndpointTests
