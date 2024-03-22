@@ -27,7 +27,7 @@ namespace EndpointManager
         {
             int option;
 
-            Console.WriteLine("Choose an option:");
+            Console.WriteLine("\nChoose an option:");
             Console.WriteLine("1) Insert a new endpoint");
             Console.WriteLine("2) Edit an existing endpoint");
             Console.WriteLine("3) Delete an existing endpoint");
@@ -120,7 +120,7 @@ namespace EndpointManager
             while (verification)
             { 
                 firmwareVersion = Console.ReadLine();
-                if (firmwareVersion != "" || firmwareVersion != null)
+                if (firmwareVersion != "" && firmwareVersion != null)
                 {
                     break;
                 }

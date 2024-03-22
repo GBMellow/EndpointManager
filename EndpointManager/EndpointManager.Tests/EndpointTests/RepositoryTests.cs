@@ -8,6 +8,8 @@ namespace EndpointEntity.Tests
     public class InMemoryEndpointRepositoryTests
     {
         private InMemoryEndpointRepository _endpointRepository;
+        private Endpoint _endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
+        private Endpoint _endpoint1 = new Endpoint("123461", 16, 11, "1.1", 1);
 
         [SetUp]
         public void Setup()
@@ -18,35 +20,28 @@ namespace EndpointEntity.Tests
         [Test]
         public void CreateEndpointTest()
         {
-            // Arrange
-            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
-
-            // Act
-            var result = _endpointRepository.Create(endpoint);
+            // Act & Arrange
+            var result = _endpointRepository.Create(_endpoint);
 
             // Assert
-            Assert.Equals(endpoint, result);
+            Assert.Equals(_endpoint, result);
         }
 
         [Test]
         public void ThrowsDuplicatedExceptionTest()
         {
             // Arrange
-            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
-
-            _endpointRepository.Create(endpoint);
+            _endpointRepository.Create(_endpoint);
 
             // Act & Assert
-            Assert.Throws<Exception>(() => _endpointRepository.Create(endpoint));
+            Assert.Throws<Exception>(() => _endpointRepository.Create(_endpoint));
         }
 
         [Test]
         public void UpdateEndpointTest()
         {
             // Arrange
-            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
-
-            _endpointRepository.Create(endpoint);
+            _endpointRepository.Create(_endpoint);
 
             // Act
             var updatedEndpoint = _endpointRepository.Update("123456", 2);
@@ -66,9 +61,7 @@ namespace EndpointEntity.Tests
         public void DeleteEndpointTest()
         {
             // Arrange
-            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
-
-            _endpointRepository.Create(endpoint);
+            _endpointRepository.Create(_endpoint);
 
             // Act
             var result = _endpointRepository.Delete("123456");
@@ -88,15 +81,13 @@ namespace EndpointEntity.Tests
         public void GetBySerialNumberTest()
         {
             // Arrange
-            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
-
-            _endpointRepository.Create(endpoint);
+            _endpointRepository.Create(_endpoint);
 
             // Act
             var result = _endpointRepository.GetBySerialNumber("123456");
 
             // Assert
-            Assert.Equals(endpoint, result);
+            Assert.Equals(_endpoint, result);
         }
 
         [Test]
@@ -110,12 +101,8 @@ namespace EndpointEntity.Tests
         public void GetAllTest()
         {
             // Arrange
-            var endpoint1 = new Endpoint("123457", 16, 11, "1.1", 1);
-
-            var endpoint2 = new Endpoint("123456", 16, 11, "1.1", 1);
-
-            _endpointRepository.Create(endpoint1);
-            _endpointRepository.Create(endpoint2);
+            _endpointRepository.Create(_endpoint);
+            _endpointRepository.Create(_endpoint);
 
             // Act
             var result = _endpointRepository.GetAll();
