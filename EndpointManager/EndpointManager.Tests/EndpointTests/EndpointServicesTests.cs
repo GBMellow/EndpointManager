@@ -1,15 +1,14 @@
 using NUnit.Framework;
 using Moq;
-using System.Collections.Generic;
 
 namespace EndpointEntity.Tests
 {
-    [TestFixture]
+
     public class EndpointServiceTests
     {
         private Mock<IEndpointRepositoryInterface> _mockEndpointRepository;
         private EndpointService _endpointService;
-        private Endpoint _endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
+
         [SetUp]
         public void Setup()
         {
@@ -18,20 +17,22 @@ namespace EndpointEntity.Tests
         }
 
         [Test]
-        public void CreateEndpointTest()
+        public void TestCreateEndpoint()
         {
             // Arrange
-            _mockEndpointRepository.Setup(repo => repo.Create(_endpoint)).Returns(_endpoint);
+            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
+
+            _mockEndpointRepository.Setup(repo => repo.Create(endpoint)).Returns(endpoint);
 
             // Act
-            var result = _endpointService.CreateEndpoint(_endpoint);
+            var result = _endpointService.CreateEndpoint(endpoint);
 
             // Assert
-            Assert.Equals(_endpoint, result);
+            Assert.AreEqual(endpoint, result);
         }
 
         [Test]
-        public void UpdateEndpointTest()
+        public void TestUpdateEndpoint()
         {
             // Arrange
             var serialNumber = "123456";
@@ -44,11 +45,11 @@ namespace EndpointEntity.Tests
             var result = _endpointService.UpdateEndpoint(serialNumber, switchState);
 
             // Assert
-            Assert.Equals(updatedEndpoint, result);
+            Assert.AreEqual(updatedEndpoint, result);
         }
 
         [Test]
-        public void DeleteEndpointTest()
+        public void TestDeleteEndpoint()
         {
             // Arrange
             var serialNumber = "123456";
@@ -59,26 +60,27 @@ namespace EndpointEntity.Tests
             var result = _endpointService.Delete(serialNumber);
 
             // Assert
-            Assert.Equals(result, true);
+            Assert.AreEqual(result, true);
         }
 
         [Test]
-        public void GetEndpointTest()
+        public void TestGetEndpoint()
         {
             // Arrange
             var serialNumber = "123456";
+            var expectedEndpoint = new Endpoint("123456", 16, 11, "1.1", 1);
 
-            _mockEndpointRepository.Setup(repo => repo.GetBySerialNumber(serialNumber)).Returns(_endpoint);
+            _mockEndpointRepository.Setup(repo => repo.GetBySerialNumber(serialNumber)).Returns(expectedEndpoint);
 
             // Act
             var result = _endpointService.GetEndpointBySerialNumber(serialNumber);
 
             // Assert
-            Assert.Equals(_endpoint, result);
+            Assert.AreEqual(expectedEndpoint, result);
         }
 
         [Test]
-        public void GetAllTest()
+        public void TestGetAll()
         {
             // Arrange
             var expectedEndpoints = new List<string> { "123456", "789012", "345678" };
@@ -89,7 +91,7 @@ namespace EndpointEntity.Tests
             var result = _endpointService.GetAll();
 
             // Assert
-            Assert.Equals(expectedEndpoints, result);
+            Assert.AreEqual(expectedEndpoints, result);
         }
     }
 }

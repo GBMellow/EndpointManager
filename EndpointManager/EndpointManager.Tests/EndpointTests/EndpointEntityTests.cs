@@ -4,39 +4,49 @@ namespace EndpointEntity.Tests
 {
     [TestFixture]
     public class EndpointTests
-    {  
-            private string _serialNumber = "123456";
-            private int _meterModelId = 16;
-            private int _meterNumber = 123;
-            private string _firmwareVersion = "1.0";
-            private int _switchState = 1;
-            private Endpoint _endpoint = new Endpoint("123456", 16, 123, "1.0", 1);
+    {
         [Test]
         public void ConstructorTest()
         {
-            //Assert
-            Assert.Equals(_serialNumber, _endpoint.SerialNumber);
-            Assert.Equals(_meterModelId, _endpoint.MeterModelId);
-            Assert.Equals(_meterNumber, _endpoint.MeterNumber);
-            Assert.Equals(_firmwareVersion, _endpoint.FirmwareVersion);
-            Assert.Equals(_switchState, _endpoint.SwitchState);
+            // Arrange
+            string serialNumber = "123456";
+            int meterModelId = 16;
+            int meterNumber = 123;
+            string firmwareVersion = "1.0";
+            int switchState = 1;
+
+            // Act
+            var endpoint = new Endpoint(serialNumber, meterModelId, meterNumber, firmwareVersion, switchState);
+
+            // Assert
+            Assert.AreEqual(serialNumber, endpoint.SerialNumber);
+            Assert.AreEqual(meterModelId, endpoint.MeterModelId);
+            Assert.AreEqual(meterNumber, endpoint.MeterNumber);
+            Assert.AreEqual(firmwareVersion, endpoint.FirmwareVersion);
+            Assert.AreEqual(switchState, endpoint.SwitchState);
         }
 
         [Test]
         public void ToStringOverrideTest()
         {
             // Arrange
-            string expectedString = $"Endpoint Serial Number: {_serialNumber}\n" +
-                                    $"Meter Model Id: {_meterModelId}\n" +
-                                    $"Meter Number: {_meterNumber}\n" +
-                                    $"Meter Firmware Version: {_firmwareVersion}\n" +
-                                    $"Switch State: {_switchState}\n";
+            string serialNumber = "123456";
+            int meterModelId = 16;
+            int meterNumber = 123;
+            string firmwareVersion = "1.0";
+            int switchState = 1;
+            var endpoint = new Endpoint(serialNumber, meterModelId, meterNumber, firmwareVersion, switchState);
+            string expectedString = $"Endpoint Serial Number: {serialNumber}\n" +
+                                    $"Meter Model Id: {meterModelId}\n" +
+                                    $"Meter Number: {meterNumber}\n" +
+                                    $"Meter Firmware Version: {firmwareVersion}\n" +
+                                    $"Switch State: {switchState}\n";
 
             // Act
-            string result = _endpoint.ToString();
+            string result = endpoint.ToString();
 
             // Assert
-            Assert.Equals(expectedString, result);
+            Assert.AreEqual(expectedString, result);
         }
     }
 }
