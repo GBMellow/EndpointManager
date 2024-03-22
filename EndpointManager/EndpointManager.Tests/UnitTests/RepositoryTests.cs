@@ -19,30 +19,20 @@ namespace EndpointEntity.Tests
         public void CreateEndpointTest()
         {
             // Arrange
-            var endpoint = new Endpoint
-            {
-                SerialNumber = "123456",
-                MeterModelId = 16,
-                SwitchState = 1
-            };
+            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
 
             // Act
             var result = _endpointRepository.Create(endpoint);
 
             // Assert
-            Assert.AreEqual(endpoint, result);
+            Assert.Equals(endpoint, result);
         }
 
         [Test]
         public void ThrowsDuplicatedExceptionTest()
         {
             // Arrange
-            var endpoint = new Endpoint
-            {
-                SerialNumber = "123456",
-                MeterModelId = 16,
-                SwitchState = 1
-            };
+            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
 
             _endpointRepository.Create(endpoint);
 
@@ -54,12 +44,7 @@ namespace EndpointEntity.Tests
         public void UpdateEndpointTest()
         {
             // Arrange
-            var endpoint = new Endpoint
-            {
-                SerialNumber = "123456",
-                MeterModelId = 16,
-                SwitchState = 1
-            };
+            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
 
             _endpointRepository.Create(endpoint);
 
@@ -67,7 +52,7 @@ namespace EndpointEntity.Tests
             var updatedEndpoint = _endpointRepository.Update("123456", 2);
 
             // Assert
-            Assert.AreEqual(2, updatedEndpoint.SwitchState);
+            Assert.Equals(2, updatedEndpoint.SwitchState);
         }
 
         [Test]
@@ -81,12 +66,7 @@ namespace EndpointEntity.Tests
         public void DeleteEndpointTest()
         {
             // Arrange
-            var endpoint = new Endpoint
-            {
-                SerialNumber = "123456",
-                MeterModelId = 16,
-                SwitchState = 1
-            };
+            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
 
             _endpointRepository.Create(endpoint);
 
@@ -94,7 +74,7 @@ namespace EndpointEntity.Tests
             var result = _endpointRepository.Delete("123456");
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.Equals(result, true);
         }
 
         [Test]
@@ -108,12 +88,7 @@ namespace EndpointEntity.Tests
         public void GetBySerialNumberTest()
         {
             // Arrange
-            var endpoint = new Endpoint
-            {
-                SerialNumber = "123456",
-                MeterModelId = 16,
-                SwitchState = 1
-            };
+            var endpoint = new Endpoint("123456", 16, 11, "1.1", 1);
 
             _endpointRepository.Create(endpoint);
 
@@ -121,7 +96,7 @@ namespace EndpointEntity.Tests
             var result = _endpointRepository.GetBySerialNumber("123456");
 
             // Assert
-            Assert.AreEqual(endpoint, result);
+            Assert.Equals(endpoint, result);
         }
 
         [Test]
@@ -135,19 +110,9 @@ namespace EndpointEntity.Tests
         public void GetAllTest()
         {
             // Arrange
-            var endpoint1 = new Endpoint
-            {
-                SerialNumber = "123456",
-                MeterModelId = 16,
-                SwitchState = 1
-            };
+            var endpoint1 = new Endpoint("123457", 16, 11, "1.1", 1);
 
-            var endpoint2 = new Endpoint
-            {
-                SerialNumber = "789012",
-                MeterModelId = 17,
-                SwitchState = 1
-            };
+            var endpoint2 = new Endpoint("123456", 16, 11, "1.1", 1);
 
             _endpointRepository.Create(endpoint1);
             _endpointRepository.Create(endpoint2);
@@ -156,47 +121,47 @@ namespace EndpointEntity.Tests
             var result = _endpointRepository.GetAll();
 
             // Assert
-            Assert.AreEqual(2, result.Count);
+            Assert.Equals(2, result.Count);
         }
 
         [Test]
         public void ValidSwitchStateDoesNotThrowExceptionTest()
         {
             // Arrange
-            var endpoint = new Endpoint("123456", 16, 1, "1.0", 1);
+            int switchState = 1;
 
             // Act & Assert
-            Assert.DoesNotThrow(() => _endpointRepository.ValidateSwitchState(endpoint.));
+            Assert.DoesNotThrow(() => _endpointRepository.ValidateSwitchState(switchState));
         }
 
         [Test]
         public void InvalidSwitchStateThrowsExceptionTest()
         {
             // Arrange
-            var endpoint = new Endpoint("123456", 16, 1, "1.0", 1);
+            int switchState = 4;
 
             // Act & Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => endpoint.ValidateSwitchState(4));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _endpointRepository.ValidateSwitchState(switchState));
         }
 
         [Test]
         public void ValidMeterModelIdDoesNotThrowExceptionTest()
         {
             // Arrange
-            var endpoint = new Endpoint("123456", 16, 1, "1.0", 1);
+            int meterModelId = 16;
 
             // Act & Assert
-            Assert.DoesNotThrow(() => endpoint.ValidateMeterModelId(16));
+            Assert.DoesNotThrow(() => _endpointRepository.ValidateMeterModelId(meterModelId));
         }
 
         [Test]
         public void InvalidMeterModelIdThrowsExceptionTest()
         {
             // Arrange
-            var endpoint = new Endpoint("123456", 16, 1, "1.0", 1);
+            int meterModelId = 16;
 
             // Act & Assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => endpoint.ValidateMeterModelId(15));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _endpointRepository.ValidateMeterModelId(meterModelId));
         }
     }
 }

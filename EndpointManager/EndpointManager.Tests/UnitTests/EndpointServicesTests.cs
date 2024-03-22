@@ -1,5 +1,5 @@
 using NUnit.Framework;
-using NUnit.Mocks;
+using Moq;
 using System.Collections.Generic;
 
 using EndpointManager;
@@ -31,7 +31,7 @@ namespace EndpointEntity.Tests
             var result = _endpointService.CreateEndpoint(endpoint);
 
             // Assert
-            Assert.(endpoint, result);
+            Assert.Equals(endpoint, result);
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace EndpointEntity.Tests
             var result = _endpointService.UpdateEndpoint(serialNumber, switchState);
 
             // Assert
-            Assert.AreEqual(updatedEndpoint, result);
+            Assert.Equals(updatedEndpoint, result);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace EndpointEntity.Tests
             var result = _endpointService.Delete(serialNumber);
 
             // Assert
-            Assert.IsTrue(result);
+            Assert.Equals(result, true);
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace EndpointEntity.Tests
             var result = _endpointService.GetEndpointBySerialNumber(serialNumber);
 
             // Assert
-            Assert.AreEqual(expectedEndpoint, result);
+            Assert.Equals(expectedEndpoint, result);
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace EndpointEntity.Tests
             var result = _endpointService.GetAll();
 
             // Assert
-            Assert.AreEqual(expectedEndpoints, result);
+            Assert.Equals(expectedEndpoints, result);
         }
     }
 }

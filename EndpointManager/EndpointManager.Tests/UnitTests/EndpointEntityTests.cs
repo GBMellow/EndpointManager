@@ -19,11 +19,11 @@ namespace EndpointEntity.Tests
             var endpoint = new Endpoint(serialNumber, meterModelId, meterNumber, firmwareVersion, switchState);
 
             // Assert
-            Assert.AreEqual(serialNumber, endpoint.SerialNumber);
-            Assert.AreEqual(meterModelId, endpoint.MeterModelId);
-            Assert.AreEqual(meterNumber, endpoint.MeterNumber);
-            Assert.AreEqual(firmwareVersion, endpoint.FirmwareVersion);
-            Assert.AreEqual(switchState, endpoint.SwitchState);
+            Assert.Equals(serialNumber, endpoint.SerialNumber);
+            Assert.Equals(meterModelId, endpoint.MeterModelId);
+            Assert.Equals(meterNumber, endpoint.MeterNumber);
+            Assert.Equals(firmwareVersion, endpoint.FirmwareVersion);
+            Assert.Equals(switchState, endpoint.SwitchState);
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace EndpointEntity.Tests
             string result = endpoint.ToString();
 
             // Assert
-            Assert.AreEqual(expectedString, result);
+            Assert.Equals(expectedString, result);
         }
     }
 }
